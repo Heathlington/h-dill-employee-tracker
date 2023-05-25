@@ -1,0 +1,25 @@
+{
+  "name": "h-dill-employee-tracker",
+  "version": "1.0.0",
+  "description": "A Content Management System (CMS) that manages a company's employee database, using Node.js, Inquirer, and MySQL. Through the CMS departments, roles, and employees can be managed. The data is presented in tables inside the terminal that show the user pertinent information for each table. The user can also add a department, role, and/or an employee. They can also update an employee role.",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Heathlington/h-dill-employee-tracker.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Heathlington/h-dill-employee-tracker/issues"
+  },
+  "homepage": "https://github.com/Heathlington/h-dill-employee-tracker#readme",
+  "dependencies": {
+    "inquirer": "^8.2.5",
+    "mysql2": "^3.3.2"
+  }
+}
