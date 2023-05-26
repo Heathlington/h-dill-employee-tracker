@@ -6,9 +6,9 @@ A Content Management System (CMS) that manages a company's employee database, us
 
 ## URL's
 
-[github]()
+[github](https://github.com/Heathlington/h-dill-employee-tracker)
 
-[live site]()
+[live site](https://drive.google.com/file/d/11tOZ_LqXR7GhwbGrS2G4jTpxUwHKiMPO/view)
 
 ## Screenshot of Challenge
 
