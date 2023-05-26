@@ -34,13 +34,13 @@ const opsMenu = async () => {
     case "view roles":
       viewRoles()
       break
-    case "view department":
+    case "view departments":
       viewDept()
       break
-    case "add employees":
+    case "add employee":
       addEmp()
       break
-    case "add roles":
+    case "add role":
       addRoles()
       break
     case "add department":
@@ -83,8 +83,31 @@ const viewDept = () => {
     opsMenu() 
   })
 }
-const addEmp = () => {
-  db.query("SELECT * FROM employee", (err, rows) => {
+const addEmp = async() => {
+  const empl = await db.promise().query("SELECT id AS value, last_name AS name FROM employee")
+  const role = await db.promise().query("SELECT id AS value, title AS name FROM role")
+  const response=await inquirer.prompt([
+    {
+      type:"input",
+      name:"first_name",
+      message:"What is the new employee's first name?"
+    },{
+      type:"input",
+      name:"last_name",
+      message:"What is the new employee's last name?" 
+    },{
+      type: "list",
+      name: "role_id",
+      message: "What is the new role?",
+      choices: role[0]
+    },{
+      type: "list",
+      name: "manager_id",
+      message: "Who is the new employees manager?",
+      choices: empl[0]
+    }
+  ])
+  db.query("INSERT INTO employee SET ?", response,  (err, rows) => {
     if (err) {
       console.log(err)
     }
@@ -93,8 +116,25 @@ const addEmp = () => {
   })
 }
 
-const addRoles = () => {
-  db.query("SELECT * FROM role", (err, rows) => {
+const addRoles = async() => {
+  const dept = await db.promise().query("SELECT id AS value, name As name FROM department")
+  const response=await inquirer.prompt([
+    {
+      type: "input",
+      name: "title",
+      message: "Name of new role?"
+    },{
+      type: "input",
+      name: "salary",
+      message: "What is the salary for the new role?"
+    },{
+      type: "list",
+      name: "department_id",
+      message: "Which department is the new role in?",
+      choices: dept[0]
+    }
+  ])
+  db.query("INSERT INTO role SET ?", response, (err, rows) => {
     if (err) {
       console.log(err)
     }
@@ -121,8 +161,24 @@ const addDept = async() => {
   })
 }
 
-const updateRole = () => {
-  db.query("SELECT * FROM role", (err, rows) => {
+const updateRole = async() => {
+  const empl = await db.promise().query("SELECT id AS value, last_name AS name FROM employee")
+  const role = await db.promise().query("SELECT id AS value, title AS name FROM role")
+  const response=await inquirer.prompt([
+    {
+      type: "list",
+      name: "id",
+      message: "Which employee would you like to change?",
+      choices: empl[0]
+    },
+    {
+      type: "list",
+      name: "role_id",
+      message: "What role would you like to change to?",
+      choices: role[0]
+    }
+  ])
+  db.query("UPDATE employee SET role_id = ? WHERE id = ?", [response.role_id, response.id], (err, rows) => {
     if (err) {
       console.log(err)
     }
